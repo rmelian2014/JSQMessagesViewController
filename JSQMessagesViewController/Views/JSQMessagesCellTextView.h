@@ -24,4 +24,6 @@
  */
 @interface JSQMessagesCellTextView : UITextView
 
+@property (nonatomic,strong) UIColor * originalTextColor;
+
 @end
