@@ -18,6 +18,11 @@
 
 #import "JSQMessagesCellTextView.h"
 
+@interface JSQMessagesCellTextView()
+@property (nonatomic,strong) UIColor * originalTextColor;
+@end
+
+
 @implementation JSQMessagesCellTextView
 
 - (void)awakeFromNib
@@ -48,14 +53,46 @@
     [super setSelectedRange:NSMakeRange(NSNotFound, 0)];
 }
 
+- (void)setTextColor:(UIColor *)textColor
+{
+    [super setTextColor:textColor];
+    _originalTextColor = textColor;
+}
+
+
 - (NSRange)selectedRange
 {
     //  attempt to prevent selecting text
     return NSMakeRange(NSNotFound, NSNotFound);
 }
 
+- (BOOL)haveValidLinks
+{
+    NSError *error = nil;
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeAddress
+                                | NSTextCheckingTypePhoneNumber | NSTextCheckingTypeDate
+                                                               error:&error];
+    
+    NSInteger number = [detector numberOfMatchesInString:self.text options:NSMatchingWithoutAnchoringBounds range:NSMakeRange(0, self.text.length)];
+    
+    if(number > 0)
+        return YES;
+    
+    return NO;
+}
+
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
+
+    if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
+        if(![self haveValidLinks])
+        {
+        self.dataDetectorTypes = UIDataDetectorTypeNone;
+        self.textColor = self.originalTextColor;
+        }
+    }
+    self.dataDetectorTypes = UIDataDetectorTypeAll;
     //  ignore double-tap to prevent copy/define/etc. menu from showing
     if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
         UITapGestureRecognizer *tap = (UITapGestureRecognizer *)gestureRecognizer;
