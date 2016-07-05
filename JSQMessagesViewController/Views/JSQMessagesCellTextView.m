@@ -20,6 +20,7 @@
 
 @interface JSQMessagesCellTextView()
 @property (nonatomic,strong) UIColor * originalTextColor;
+@property (nonatomic,strong) NSMutableArray *customLinkExpresions;
 @end
 
 
@@ -47,6 +48,14 @@
                                  NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
 }
 
+-(void)addCustomLinkRegularExpresion:(NSRegularExpression*)expresion
+{
+    if(_customLinkExpresions == nil)
+        _customLinkExpresions = [NSMutableArray array];
+    
+    [_customLinkExpresions addObject:expresion];
+}
+
 - (void)setSelectedRange:(NSRange)selectedRange
 {
     //  attempt to prevent selecting text
@@ -66,13 +75,29 @@
     return NSMakeRange(NSNotFound, NSNotFound);
 }
 
+- (void)detectCustomLinks
+{
+    NSMutableArray<NSTextCheckingResult*>  *textCheckingResults = [NSMutableArray<NSTextCheckingResult*> array];
+    for (NSRegularExpression *exp in _customLinkExpresions) {
+        NSArray<NSTextCheckingResult*> * matches = [exp matchesInString:self.text options:NSMatchingWithoutAnchoringBounds range:NSMakeRange(0, self.text.length)];
+        [textCheckingResults addObjectsFromArray:matches];
+    }
+    
+    NSMutableAttributedString * str2 = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
+    
+    for (NSTextCheckingResult * match in textCheckingResults) {
+        [str2 addAttribute: NSLinkAttributeName value:[str2 attributedSubstringFromRange:match.range].string range:match.range];
+    }
+    
+    self.attributedText = str2;
+}
+
 - (BOOL)haveValidLinks
 {
     NSError *error = nil;
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeAddress
                                 | NSTextCheckingTypePhoneNumber | NSTextCheckingTypeDate
                                                                error:&error];
-    
     NSInteger number = [detector numberOfMatchesInString:self.text options:NSMatchingWithoutAnchoringBounds range:NSMakeRange(0, self.text.length)];
     
     if(number > 0)
@@ -115,6 +140,12 @@
     }
     
     return YES;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self detectCustomLinks];
 }
 
 @end

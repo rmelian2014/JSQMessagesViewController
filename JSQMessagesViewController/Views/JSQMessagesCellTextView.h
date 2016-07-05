@@ -24,4 +24,6 @@
  */
 @interface JSQMessagesCellTextView : UITextView
 
+-(void)addCustomLinkRegularExpresion:(NSRegularExpression*)expresion;
+
 @end
