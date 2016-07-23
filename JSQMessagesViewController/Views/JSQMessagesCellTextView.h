@@ -18,12 +18,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol RegularExpressionDelegate <NSObject>
+
+-(NSArray<NSRegularExpression*>*)getRegularExpressions;
+
+@end
+
 /**
  *  `JSQMessagesCellTextView` is a subclass of `UITextView` that is used to display text
  *  in a `JSQMessagesCollectionViewCell`.
  */
 @interface JSQMessagesCellTextView : UITextView
 
--(void)addCustomLinkRegularExpresion:(NSRegularExpression*)expresion;
+@property (weak) id<RegularExpressionDelegate> regularExpressionsDelegate;
 
 @end

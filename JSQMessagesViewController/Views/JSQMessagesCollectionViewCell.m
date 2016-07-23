@@ -277,6 +277,8 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 {
     [super setBackgroundColor:backgroundColor];
 
+    [self.textView layoutSubviews];
+    
     self.cellTopLabel.backgroundColor = backgroundColor;
     self.messageBubbleTopLabel.backgroundColor = backgroundColor;
     self.cellBottomLabel.backgroundColor = backgroundColor;

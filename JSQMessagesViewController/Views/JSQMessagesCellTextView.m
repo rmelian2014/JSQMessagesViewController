@@ -75,21 +75,24 @@
     return NSMakeRange(NSNotFound, NSNotFound);
 }
 
-- (void)detectCustomLinks
+- (BOOL)detectCustomLinks
 {
     NSMutableArray<NSTextCheckingResult*>  *textCheckingResults = [NSMutableArray<NSTextCheckingResult*> array];
-    for (NSRegularExpression *exp in _customLinkExpresions) {
+    for (NSRegularExpression *exp in [self.regularExpressionsDelegate getRegularExpressions]) {
         NSArray<NSTextCheckingResult*> * matches = [exp matchesInString:self.text options:NSMatchingWithoutAnchoringBounds range:NSMakeRange(0, self.text.length)];
         [textCheckingResults addObjectsFromArray:matches];
     }
     
     NSMutableAttributedString * str2 = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
     
+    [str2 removeAttribute:NSLinkAttributeName range:NSMakeRange(0, str2.string.length)];
     for (NSTextCheckingResult * match in textCheckingResults) {
         [str2 addAttribute: NSLinkAttributeName value:[str2 attributedSubstringFromRange:match.range].string range:match.range];
     }
     
     self.attributedText = str2;
+    
+    return [textCheckingResults count] > 0 ? YES : NO;
 }
 
 - (BOOL)haveValidLinks
@@ -100,7 +103,7 @@
                                                                error:&error];
     NSInteger number = [detector numberOfMatchesInString:self.text options:NSMatchingWithoutAnchoringBounds range:NSMakeRange(0, self.text.length)];
     
-    if(number > 0)
+    if(number > 0 /*|| [self detectCustomLinks]*/)
         return YES;
     
     return NO;
@@ -111,7 +114,7 @@
 {
 
     if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
-        if(![self haveValidLinks])
+        if(![self haveValidLinks] && ![self customLinkExpresions])
         {
         self.dataDetectorTypes = UIDataDetectorTypeNone;
         self.textColor = self.originalTextColor;

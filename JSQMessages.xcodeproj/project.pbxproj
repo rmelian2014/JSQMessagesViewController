@@ -107,6 +107,8 @@
 		88C00A521A44D4E500B004B3 /* JSQVideoMediaItemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C00A511A44D4E500B004B3 /* JSQVideoMediaItemTests.m */; };
 		88C4583019F5F7A0008FD427 /* JSQMessagesMediaViewBubbleImageMasker.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C4582F19F5F7A0008FD427 /* JSQMessagesMediaViewBubbleImageMasker.m */; };
 		BF10D6AA1D062AD10072D215 /* JSQMessagesTypingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF10D6A91D062AD10072D215 /* JSQMessagesTypingView.m */; };
+		FB43B7C01D38115300C36461 /* DemoModelDataSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43B7BF1D38115300C36461 /* DemoModelDataSwift.swift */; };
+		FBDB88791D3E7E5900AE4FE5 /* DemoMessagesViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDB88781D3E7E5900AE4FE5 /* DemoMessagesViewController2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -270,6 +272,9 @@
 		88C4582F19F5F7A0008FD427 /* JSQMessagesMediaViewBubbleImageMasker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSQMessagesMediaViewBubbleImageMasker.m; sourceTree = "<group>"; };
 		BF10D6A81D062AD10072D215 /* JSQMessagesTypingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQMessagesTypingView.h; sourceTree = "<group>"; };
 		BF10D6A91D062AD10072D215 /* JSQMessagesTypingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSQMessagesTypingView.m; sourceTree = "<group>"; };
+		FB43B7B91D38111D00C36461 /* JSQMessages-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSQMessages-Bridging-Header.h"; sourceTree = "<group>"; };
+		FB43B7BF1D38115300C36461 /* DemoModelDataSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoModelDataSwift.swift; sourceTree = "<group>"; };
+		FBDB88781D3E7E5900AE4FE5 /* DemoMessagesViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoMessagesViewController2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -383,6 +388,9 @@
 				88A25FDD19D8E0C400924534 /* TableViewController.h */,
 				88A25FDE19D8E0C400924534 /* TableViewController.m */,
 				50B7F5AA1CA401FA009A44F5 /* Localizable.strings */,
+				FB43B7B91D38111D00C36461 /* JSQMessages-Bridging-Header.h */,
+				FB43B7BF1D38115300C36461 /* DemoModelDataSwift.swift */,
+				FBDB88781D3E7E5900AE4FE5 /* DemoMessagesViewController2.swift */,
 			);
 			path = JSQMessagesDemo;
 			sourceTree = "<group>";
@@ -654,6 +662,7 @@
 		88A25EFA19D8DEC400924534 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Hexed Bits";
 				TargetAttributes = {
@@ -737,9 +746,11 @@
 				88A25FCE19D8E01A00924534 /* JSQMessagesCollectionViewCellOutgoing.m in Sources */,
 				88A25FD119D8E01A00924534 /* JSQMessagesInputToolbar.m in Sources */,
 				88A25FCB19D8E01A00924534 /* JSQMessagesCollectionViewCell.m in Sources */,
+				FBDB88791D3E7E5900AE4FE5 /* DemoMessagesViewController2.swift in Sources */,
 				88A25FBB19D8E01A00924534 /* JSQMessagesViewController.m in Sources */,
 				8885734D19DE55D000E89D20 /* NSUserDefaults+DemoSettings.m in Sources */,
 				544A32211CB2EE380084BFC0 /* JSQAudioMediaViewAttributes.m in Sources */,
+				FB43B7C01D38115300C36461 /* DemoModelDataSwift.swift in Sources */,
 				883C11781A09FB100092A16D /* JSQMessagesCellTextView.m in Sources */,
 				88A25FB919D8E01A00924534 /* UIView+JSQMessages.m in Sources */,
 				88A25FCA19D8E01A00924534 /* JSQMessagesCollectionView.m in Sources */,
@@ -933,6 +944,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/JSQMessagesDemo/Info.plist";
@@ -942,6 +954,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hexedbits.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "JSQMessagesDemo/JSQMessages-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -951,6 +965,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/JSQMessagesDemo/Info.plist";
@@ -960,6 +975,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hexedbits.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "JSQMessagesDemo/JSQMessages-Bridging-Header.h";
 			};
 			name = Release;
 		};

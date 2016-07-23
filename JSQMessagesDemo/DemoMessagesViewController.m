@@ -552,20 +552,27 @@
     if (!msg.isMediaMessage) {
         
         if ([msg.senderId isEqualToString:self.senderId]) {
-            cell.textView.textColor = [UIColor blackColor];
+            cell.textView.textColor = [UIColor redColor];
+            cell.textView.delegate = self;
+            cell.textView.regularExpressionsDelegate = self;
         }
         else {
-            cell.textView.textColor = [UIColor whiteColor];
+            cell.textView.textColor = [UIColor blackColor];
+            cell.textView.delegate = self;
+            cell.textView.regularExpressionsDelegate = self;
         }
         
-        cell.textView.linkTextAttributes = @{ NSForegroundColorAttributeName : cell.textView.textColor,
+        cell.textView.linkTextAttributes = @{ NSForegroundColorAttributeName : [UIColor blueColor],
                                               NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
     }
     
     return cell;
 }
 
-
+- (NSArray<NSRegularExpression*>*)getRegularExpressions
+{
+    return [NSArray arrayWithObject:[NSRegularExpression regularExpressionWithPattern:@"#([a-zA-Z0-9])+" options:0 error:NULL]];
+}
 
 #pragma mark - UICollectionView Delegate
 
@@ -694,6 +701,12 @@
         [self finishSendingMessage];
         return NO;
     }
+    return YES;
+}
+
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
+{
     return YES;
 }
 
